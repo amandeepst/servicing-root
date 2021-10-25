@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+  xmlns:seblService="http://siebel.com/webservices"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:tns="http://siebel.com/CustomUI"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:xsdLocal1="http://www.siebel.com/xml/approvalCheckRequest"
+  targetNamespace="http://siebel.com/CustomUI"
+  xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <binding name="WP_spcORMB_spcFinance_spcApproval_spcProcess" type="tns:WP_spcORMB_spcFinance_spcApproval_spcProcess">
+    <operation name="wp_financial_approvals">
+      <input>
+        <soap:body use="literal"></soap:body>
+        <soap:header message="tns:SiebelInputHeaderMessage" part="Password" use="literal"/>
+        <soap:header message="tns:SiebelInputHeaderMessage" part="UserName" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"></soap:body>
+      </output>
+      <soap:operation soapAction="document/http://siebel.com/CustomUI:wp_financial_approvals"></soap:operation>
+    </operation>
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+  </binding>
+  <message name="wp_financial_approvals_Input">
+    <part element="tns:wp_financial_approvals_Input" name="wp_financial_approvals_Input"></part>
+  </message>
+  <message name="wp_financial_approvals_Output">
+    <part element="tns:wp_financial_approvals_Output" name="wp_financial_approvals_Output"></part>
+  </message>
+  <message name="SiebelInputHeaderMessage">
+    <part element="seblService:UsernameToken" name="UserName"/>
+    <part element="seblService:PasswordText" name="Password"/>
+  </message>
+  <portType name="WP_spcORMB_spcFinance_spcApproval_spcProcess">
+    <operation name="wp_financial_approvals">
+      <input message="tns:wp_financial_approvals_Input"></input>
+      <output message="tns:wp_financial_approvals_Output"></output>
+    </operation>
+  </portType>
+  <service name="WP_spcORMB_spcFinance_spcApproval_spcProcess">
+    <port binding="tns:WP_spcORMB_spcFinance_spcApproval_spcProcess" name="WP_spcORMB_spcFinance_spcApproval_spcProcess">
+      <soap:address location="http://ukdc1-s3-och111.worldpaytd.local:7780/eai_enu/start.swe?SWEExtSource=WebService&amp;SWEExtCmd=Execute&amp;WSSOAP=1">
+      </soap:address>
+    </port>
+  </service>
+  <types>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified"
+      targetNamespace="http://siebel.com/webservices" xmlns="http://siebel.com/webservices">
+      <xsd:element name="UsernameToken" type="xsd:string"/>
+      <xsd:element name="PasswordText" type="xsd:string"/>
+    </xsd:schema>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified"
+      targetNamespace="http://siebel.com/CustomUI">
+      <xsd:element name="wp_financial_approvals_Input">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element ref="xsdLocal1:approvalCheckRequest"></xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="wp_financial_approvals_Output">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element ref="xsdLocal1:approvalCheckRequest"></xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:import namespace="http://www.siebel.com/xml/approvalCheckRequest"></xsd:import>
+    </xsd:schema>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsdLocal1="http://www.siebel.com/xml/approvalCheckRequest"
+      attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.siebel.com/xml/approvalCheckRequest">
+      <xsd:annotation>
+        <xsd:documentation>Copyright (C) 2001-2004 Siebel Systems, Inc. All rights reserved. Siebel XSD Generation</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexType name="approvalCheckRequestTopElmt">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="approvalCheckRequest" type="xsdLocal1:approvalCheckRequest"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="approvalCheckRequest">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="callInfo" type="xsdLocal1:callInfo"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="1" name="approval" type="xsdLocal1:approval"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="callInfo">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="callId" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0" name="callType" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0" name="description" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0" name="creationDate" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="approval">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="caseId" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="1" name="createdBy" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0" name="PositionName" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="approvalItem" type="xsdLocal1:approvalItem"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0" name="error" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0" name="approvalId" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0" name="InError" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="approvalItem">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="service" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0" name="serviceId" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0" name="serviceClass" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="1" name="serviceItemType" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0" name="amount" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0" name="currency" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0" name="creditDebit" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="approvalCheckRequest" type="xsdLocal1:approvalCheckRequest"></xsd:element>
+    </xsd:schema>
+  </types>
+</definitions>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:tns="http://siebel.com/CustomUI"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:xsdLocal1="http://www.siebel.com/xml/WP%20ORMB%20Party%20Response%20IO"
+  targetNamespace="http://siebel.com/CustomUI"
+  xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <binding name="WP_spcAccount_spcHierarchy_spcQuery"
+    type="tns:WP_spcAccount_spcHierarchy_spcQuery">
+    <operation name="wp_hier_query">
+      <input>
+        <soap:body use="literal"></soap:body>
+      </input>
+      <output>
+        <soap:body use="literal"></soap:body>
+      </output>
+      <soap:operation
+        soapAction="document/http://siebel.com/CustomUI:wp_hier_query"></soap:operation>
+    </operation>
+    <soap:binding
+      style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+  </binding>
+  <message name="wp_hier_query_Output">
+    <part element="tns:wp_hier_query_Output"
+      name="wp_hier_query_Output"></part>
+  </message>
+  <message name="wp_hier_query_Input">
+    <part element="tns:wp_hier_query_Input"
+      name="wp_hier_query_Input"></part>
+  </message>
+  <portType name="WP_spcAccount_spcHierarchy_spcQuery">
+    <operation name="wp_hier_query">
+      <input message="tns:wp_hier_query_Input"></input>
+      <output message="tns:wp_hier_query_Output"></output>
+    </operation>
+  </portType>
+  <service name="WP_spcAccount_spcHierarchy_spcQuery">
+    <port binding="tns:WP_spcAccount_spcHierarchy_spcQuery"
+      name="WP_spcAccount_spcHierarchy_spcQuery">
+      <soap:address
+        location="http://ukdc1-s3-och111.worldpaytd.local:7780/eai_enu/start.swe?SWEExtSource=WebService&amp;SWEExtCmd=Execute&amp;WSSOAP=1"></soap:address>
+    </port>
+  </service>
+  <types>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      xmlns:xsdLocal1="http://www.siebel.com/xml/WP%20ORMB%20Party%20Response%20IO"
+      attributeFormDefault="unqualified"
+      elementFormDefault="qualified"
+      targetNamespace="http://www.siebel.com/xml/WP%20ORMB%20Party%20Response%20IO">
+      <xsd:annotation>
+        <xsd:documentation>Copyright (C) 2001-2004 Siebel Systems, Inc. All
+          rights reserved. Siebel XSD Generation
+        </xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexType name="SEARCHED_PARTYTopElmt">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1"
+            name="SEARCHED_PARTY" type="xsdLocal1:SEARCHED_PARTY"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SEARCHED_PARTY">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0"
+            name="MASTER_PARTY_ID" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0" name="ERR_MSG"
+            type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0"
+            name="ERR_CODE" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0"
+            name="EXTERNAL_MERCHANT_ID" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="unbounded" minOccurs="0"
+            name="PARTY" type="xsdLocal1:PARTY"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PARTY">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0"
+            name="EXTERNAL_MERCHANT_ID" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0"
+            name="SIEBEL_ID" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0"
+            name="LEGAL_NAME" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0"
+            name="TRADING_NAME" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0" name="PATH"
+            type="xsd:string"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="SEARCHED_PARTY"
+        type="xsdLocal1:SEARCHED_PARTY"></xsd:element>
+    </xsd:schema>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      attributeFormDefault="unqualified"
+      elementFormDefault="qualified"
+      targetNamespace="http://siebel.com/CustomUI">
+      <xsd:element name="wp_hier_query_Input">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="PartyId" type="xsd:string"></xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="wp_hier_query_Output">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element ref="xsdLocal1:SEARCHED_PARTY"></xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:import
+        namespace="http://www.siebel.com/xml/WP%20ORMB%20Party%20Response%20IO"></xsd:import>
+    </xsd:schema>
+  </types>
+</definitions>
