@@ -1,0 +1,152 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.worldpay.servicing</groupId>
+    <artifactId>servicing-root</artifactId>
+    <version>5.0.22-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>servicing-common</artifactId>
+  <packaging>jar</packaging>
+  <name>Servicing Common</name>
+  <description>Servicing Entities</description>
+  <properties>
+    <coverage.exclusions>
+      **/com/worldpay/servicing/common/*,
+      **/com/worldpay/servicing/common/logging/LoggingMarker,
+      **/com/worldpay/servicing/common/CommonConfig*
+    </coverage.exclusions>
+    <!--
+    Sonar property to exclude files from code coverage report
+   -->
+    <sonar.coverage.exclusions>
+      ${coverage.exclusions}
+    </sonar.coverage.exclusions>
+    <sonar.exclusions>
+      ${coverage.exclusions}
+    </sonar.exclusions>
+  </properties>
+  <dependencies>
+    <!-- Spring Boot dependencies -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aop</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- TPG dependencies-->
+    <dependency>
+      <groupId>com.worldpay.tpg</groupId>
+      <artifactId>tpg-common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.1.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>test-jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <configuration>
+          <ignoredUnusedDeclaredDependencies>
+            <ignoredUnusedDeclaredDependency>org.glassfish:javax.el:jar:3.0.1-b09
+            </ignoredUnusedDeclaredDependency>
+          </ignoredUnusedDeclaredDependencies>
+          <ignoredUsedUndeclaredDependencies>
+            <!-- Ignore because this is provided by the container -->
+            <ignoredUsedUndeclaredDependency>org.apache.tomcat.embed:tomcat-embed-core:jar:9.0.14
+            </ignoredUsedUndeclaredDependency>
+          </ignoredUsedUndeclaredDependencies>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>jacoco-coverage-app</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+        <property>
+          <name>jacoco-coverage-report</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <configuration>
+              <excludes>
+                <!--
+                Don't instrument these classes. The Jacoco code coverage report won't include these
+                                 classes.
+               -->
+                <exclude>${coverage.exclusions}</exclude>
+              </excludes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+      <reporting>
+        <plugins>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <configuration>
+              <excludes>
+                <!--
+                Don't instrument these classes in the report for the Sonar job. These classes still
+                                 need to be added in the sonar.coverage.exclusions property in order for the Sonar report to ignore them.
+                                 If they are not added to the sonar.coverage.exclusions property then they'll show up with 0% code coverage
+                                 even if some lines/conditions are covered.
+               -->
+                <exclude>${coverage.exclusions}</exclude>
+              </excludes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </reporting>
+    </profile>
+  </profiles>
+</project>
