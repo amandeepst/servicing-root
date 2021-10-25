@@ -1,0 +1,229 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.worldpay.servicing</groupId>
+    <artifactId>servicing-root</artifactId>
+    <version>5.0.22-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>servicing-model</artifactId>
+  <packaging>jar</packaging>
+  <name>Servicing Model</name>
+  <description>Servicing Entities</description>
+  <properties>
+    <coverage.exclusions.dto>**/com/worldpay/servicing/model/dto/*
+    </coverage.exclusions.dto>
+    <coverage.exclusions.dto.enums>**/com/worldpay/servicing/model/dto/enums/*
+    </coverage.exclusions.dto.enums>
+    <coverage.exclusions.dto.ormb>**/com/worldpay/servicing/model/dto/ormb/*
+    </coverage.exclusions.dto.ormb>
+    <coverage.exclusions.entity>**/com/worldpay/servicing/model/entity/*
+    </coverage.exclusions.entity>
+    <coverage.exclusions.entity.enums>**/com/worldpay/servicing/model/entity/enums/*
+    </coverage.exclusions.entity.enums>
+    <coverage.exclusions.profile>**/com/worldpay/servicing/model/profile/*
+    </coverage.exclusions.profile>
+    <coverage.exclusions.util>**/com/worldpay/servicing/model/util/*
+    </coverage.exclusions.util>
+    <!--
+    Sonar property to exclude files from code coverage report
+   -->
+    <sonar.coverage.exclusions>
+      ${coverage.exclusions.dto},${coverage.exclusions.entity},${coverage.exclusions.dto.enums},${coverage.exclusions.entity.enums},
+      ${coverage.exclusions.profile}, ${coverage.exclusions.dto.ormb}, ${coverage.exclusions.util}
+    </sonar.coverage.exclusions>
+    <sonar.exclusions>
+      ${coverage.exclusions.dto},${coverage.exclusions.entity},${coverage.exclusions.dto.enums},${coverage.exclusions.entity.enums},
+      ${coverage.exclusions.profile}, ${coverage.exclusions.dto.ormb}, ${coverage.exclusions.util}
+    </sonar.exclusions>
+  </properties>
+  <dependencies>
+  <!-- Spring Boot dependencies -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>net.bytebuddy</groupId>
+          <artifactId>byte-buddy</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <artifactId>spring-core</artifactId>
+      <groupId>org.springframework</groupId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-json</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-logging</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.fasterxml.jackson.datatype</groupId>
+          <artifactId>jackson-datatype-jsr310</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <!-- Other dependencies -->
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.el</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.modelmapper</groupId>
+      <artifactId>modelmapper</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+    </dependency>
+    <!-- Hibernate dependencies -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>net.bytebuddy</groupId>
+          <artifactId>byte-buddy</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <!-- javax dependencies -->
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>javax.persistence</groupId>
+      <artifactId>javax.persistence-api</artifactId>
+    </dependency>
+
+    <!-- jackson dependencies -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+    </dependency>
+
+    <!-- Test dependencies -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.1.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>test-jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <configuration>
+          <ignoredUnusedDeclaredDependencies>
+            <ignoredUnusedDeclaredDependency>
+              org.springframework.boot:spring-boot-starter-data-jpa:jar:2.1.2.RELEASE
+            </ignoredUnusedDeclaredDependency>
+            <ignoredUnusedDeclaredDependency>
+              org.springframework.boot:spring-boot-starter-json:jar:2.1.2.RELEASE
+            </ignoredUnusedDeclaredDependency>
+            <ignoredUnusedDeclaredDependency>org.glassfish:javax.el:jar:3.0.1-b09
+            </ignoredUnusedDeclaredDependency>
+          </ignoredUnusedDeclaredDependencies>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>jacoco-coverage-app</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+        <property>
+          <name>jacoco-coverage-report</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <configuration>
+              <excludes>
+                <!--
+                Don't instrument these classes. The Jacoco code coverage report won't include these
+                                 classes.
+               -->
+                <exclude>${coverage.exclusions.dto}</exclude>
+                <exclude>${coverage.exclusions.dto.enums}</exclude>
+                <exclude>${coverage.exclusions.dto.ormb}</exclude>
+                <exclude>${coverage.exclusions.entity}</exclude>
+                <exclude>${coverage.exclusions.entity.enums}</exclude>
+                <exclude>${coverage.exclusions.profile}</exclude>
+              </excludes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+      <reporting>
+        <plugins>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <configuration>
+              <excludes>
+                <!--
+                Don't instrument these classes in the report for the Sonar job. These classes still
+                                 need to be added in the sonar.coverage.exclusions property in order for the Sonar report to ignore them.
+                                 If they are not added to the sonar.coverage.exclusions property then they'll show up with 0% code coverage
+                                 even if some lines/conditions are covered.
+               -->
+                <exclude>${coverage.exclusions.dto}</exclude>
+                <exclude>${coverage.exclusions.dto.enums}</exclude>
+                <exclude>${coverage.exclusions.entity}</exclude>
+                <exclude>${coverage.exclusions.entity.enums}</exclude>
+                <exclude>${coverage.exclusions.profile}</exclude>
+              </excludes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </reporting>
+    </profile>
+  </profiles>
+</project>
