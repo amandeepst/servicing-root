@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:tns="http://model.inbound.gateway.servicing.worldpay.com/approvews"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="qualified"
+  targetNamespace="http://model.inbound.gateway.servicing.worldpay.com/approvews">
+
+  <xs:complexType name="servicingItemRequest">
+    <xs:sequence>
+      <xs:element name="callInfo">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="callId" type="xs:string"></xs:element>
+            <xs:element default="approveServiceItem" name="callType" type="xs:string"></xs:element>
+            <xs:element name="creationDate" type="xs:dateTime"></xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="caseInformation">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="caseId" nillable="false" type="xs:string"></xs:element>
+            <xs:element name="approvedBy" type="xs:string"></xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="serviceItem">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="serviceId" nillable="true" type="xs:string"></xs:element>
+            <xs:element name="serviceType" type="tns:serviceItemType"></xs:element>
+            <xs:element name="status" type="tns:serviceItemStatus"></xs:element>
+            <xs:element name="approvalDecisionDate" type="xs:dateTime"></xs:element>
+            <xs:element name="rejectionReason" nillable="true" type="xs:string"></xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="servicingItemResponse">
+    <xs:sequence>
+      <xs:element name="id" type="xs:string"/>
+      <xs:element name="requestStatus" type="xs:string"/>
+      <xs:element name="errorMessage" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="approveServicingItemRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="servicingItemRequest"
+          type="tns:servicingItemRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="approveServicingItemResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="servicingItemResponse"
+          type="tns:servicingItemResponse"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:simpleType name="serviceItemType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Adjustment"/>
+      <xs:enumeration value="Payment"/>
+      <xs:enumeration value="AdhocCharge"/>
+      <xs:enumeration value="BillCorrection"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="serviceItemStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="APPROVED"/>
+      <xs:enumeration value="NOT_APPROVED"/>
+      <xs:enumeration value="REJECTED"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
+	
